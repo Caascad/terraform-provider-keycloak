@@ -114,6 +114,10 @@ func resourceKeycloakRealm() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"frontend_url": {
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"user_managed_access": {
 				Type:     schema.TypeBool,
 				Optional: true,
@@ -607,6 +611,7 @@ func getRealmFromData(data *schema.ResourceData) (*keycloak.Realm, error) {
 		Enabled:           data.Get("enabled").(bool),
 		DisplayName:       data.Get("display_name").(string),
 		DisplayNameHtml:   data.Get("display_name_html").(string),
+		FrontendURL:       data.Get("frontend_url").(string),
 		UserManagedAccess: data.Get("user_managed_access").(bool),
 
 		// Login Config
@@ -1005,6 +1010,7 @@ func setRealmData(data *schema.ResourceData, realm *keycloak.Realm) {
 	data.Set("enabled", realm.Enabled)
 	data.Set("display_name", realm.DisplayName)
 	data.Set("display_name_html", realm.DisplayNameHtml)
+	data.Set("frontend_url", realm.FrontendURL)
 	data.Set("user_managed_access", realm.UserManagedAccess)
 
 	// Login Config
